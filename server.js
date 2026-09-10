@@ -16,7 +16,58 @@ app.get('/', (req, res) => {
 });
 
 app.get('/produtos', (req, res) => {
-    res.json(produtos);
+
+    const pagina = Number(req.query.pagina) === undefined ? 1 : Number(req.query.pagina);
+    const limite = Number(req.query.limite) === undefined ? 2: Number(req.query.limite);
+
+    const total = produtos.length;
+    const totalPaginas = Math.ceil(total / limite);
+
+    const inicio = (pagina - 1) * limite;
+
+    const produtosPaginados = produtos.slice(inicio, inicio + limite);
+
+    if (pagina > totalPaginas) {
+        return res.status(404).json({
+            mensagem: 'Página não encontrada'
+        });
+    }
+
+    if (pagina < 1) {
+        return res.status(400).json({
+            mensagem: 'Página inválida'
+        });
+    }
+
+    if (limite < 1) {
+        return res.status(400).json({
+            mensagem: 'Limite inválido'
+        });
+    }
+
+    if (Number.isNaN(pagina)) {
+        return res.status(400).json({
+            mensagem: 'Página inválida'
+        });
+    }
+
+    if (Number.isNaN(limite)) {
+
+        return res.status(400).json({
+
+            mensagem: 'Limite inválido'
+
+        });
+
+    }
+
+    res.json({
+        pagina: pagina,
+        limite: limite,
+        total: total,
+        totalPaginas: totalPaginas,
+        produtos: produtosPaginados
+    });
 });
 
 app.get('/produtos/:id', (req, res) => {
