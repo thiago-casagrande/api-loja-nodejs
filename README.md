@@ -9,6 +9,7 @@ A ideia do projeto foi criar uma API simples de uma loja, onde é possível cria
 - JavaScript
 - Node.js
 - Express
+- Git e GitHub
 
 ## Funcionalidades
 
@@ -19,3 +20,9 @@ Atualmente, a API permite:
 - Adicionar um novo produto
 - Atualizar um produto existente
 - Deletar um produto
+- Paginar os produtos
+- Validar páginas e limites inválidos
+
+## Paginação
+
+A rota de produtos permite definir a página e a quantidade de produtos por página.
